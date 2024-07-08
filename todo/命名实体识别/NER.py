@@ -2,7 +2,8 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "8"
+CUDA_VISIBLE_DEVICES="9"
 
 def predict(messages, model, tokenizer):
     device = "cuda"
