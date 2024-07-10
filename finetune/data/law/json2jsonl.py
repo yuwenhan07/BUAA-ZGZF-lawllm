@@ -14,6 +14,6 @@ def json_to_jsonl(json_path, jsonl_path):
             jsonl_file.write(json.dumps(item, ensure_ascii=False) + '\n')
 
 # 示例用法
-json_path = '命名实体识别.json'
-jsonl_path = 'NER.jsonl'
+json_path = 'val_data.json'
+jsonl_path = 'NER_val.jsonl'
 json_to_jsonl(json_path, jsonl_path)

@@ -12,7 +12,9 @@ import swanlab
 import os
 
 # 指定只使用 CUDA 设备 0 和 1
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "9"
+CUDA_VISIBLE_DEVICES="9"
+
 
 def dataset_jsonl_transfer(origin_path, new_path):
     """
@@ -103,11 +105,11 @@ model = AutoModelForCausalLM.from_pretrained("./ZhipuAI/glm-4-9b-chat/", device_
 model.enable_input_require_grads()  # 开启梯度检查点时，要执行该方法
 
 # 加载、处理数据集和测试集
-train_dataset_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER.jsonl"
+train_dataset_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER_train.jsonl"
 test_dataset_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER.jsonl"
 
-train_jsonl_new_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER_train_2.jsonl"
-test_jsonl_new_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER_test_2.jsonl"
+train_jsonl_new_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER_train_new.jsonl"
+test_jsonl_new_path = "/home/yuwenhan/law-LLM/buaa&zgzf/finetune/data/law/NER_test_new.jsonl"
 
 if not os.path.exists(train_jsonl_new_path):
     dataset_jsonl_transfer(train_dataset_path, train_jsonl_new_path)
@@ -139,11 +141,11 @@ config = LoraConfig(
 model = get_peft_model(model, config)
 
 args = TrainingArguments(
-    output_dir="./output/GLM4-NER-2",
-    per_device_train_batch_size=4,
+    output_dir="./output/GLM4-NER-3",
+    per_device_train_batch_size=2,
     gradient_accumulation_steps=4,
     logging_steps=10,
-    num_train_epochs=2,
+    num_train_epochs=3,
     save_steps=100,
     learning_rate=1e-4,
     save_on_each_node=True,
